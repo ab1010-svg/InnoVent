@@ -1,0 +1,848 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InnoVent - Innovate & Connect</title>
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&display=swap" rel="stylesheet">
+  <script src="script.js" defer></script>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Exo 2', sans-serif;
+    }
+    
+    body {
+      color: #4242ff;
+      /* Add top padding to account for the fixed navbar */
+       font-family: 'Exo 2', sans-serif;
+       margin-top: 60px;
+
+    }
+    
+    /* ---------- Fixed Navbar ---------- */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 10px;
+      width: 100%;
+      padding: 30px;
+      background: white;
+      display: flex;
+      justify-content: space-between; /* Distribute items between left and right */
+      align-items: center;
+      z-index: 100;
+    }
+    
+    /* Logo styling */
+    .logo {
+      font-size: 30px;
+      font-weight: bold;
+      color: #4242ff;
+      margin-left: 15px;
+    }
+    
+    /* Search Box Container inside Navbar - centered via absolute positioning */
+    .search-container {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-40%);  /* Shifted slightly to the right */
+      width: 35%;  /* Reduced width */
+    }
+    
+    .search-box {
+      width: 100%;
+      padding: 10px 45px 10px 15px;
+      font-size: 16px;
+      border: 2px solid rgb(55, 0, 255);
+      border-radius: 20px;
+      outline: none;
+      transition: 0.3s;
+      background: #fcfcfe;
+      color: black;
+    }
+    
+    .search-box:focus {
+      border-color: rgb(33, 111, 228);
+    }
+    
+    .search-icon {
+      position: absolute;
+      right: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #4242ff;
+      font-size: 18px;
+      pointer-events: none;
+    }
+    
+    /* ---------- Nav Icons at the Right Side ---------- */
+    .nav-icons {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+    
+    .nav-icons a {
+      color: #4242ff;
+      font-size: 22px;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    
+    .nav-icons a:hover {
+      color: #00ccba;
+    }
+    
+    /* ---------- Fixed Side Navigation (Updated) ---------- */
+    .sidenav {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 60px; /* Placed just below the navbar */
+      left: 0;
+      /* New gradient background and subtle box-shadow for a modern look */
+      background: linear-gradient(135deg, #3a3a80, #2c3e50);
+      overflow-x: hidden;
+      padding: 20px 0;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.3);
+      z-index: 50;
+    }
+    
+    .sidenav a {
+      margin: 10px 20px;
+      padding: 10px 15px;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      color: #fff;
+      display: block;
+      font-family: 'Poppins', sans-serif;
+      letter-spacing: 1px;
+      line-height: 2;
+      text-transform: uppercase;
+      border-radius: 8px;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    
+    .sidenav a:hover {
+      background: rgba(255, 255, 255, 0.2);
+      transform: scale(1.05);
+    }
+    
+    /* Add spacing between icons and text in the side nav */
+    .sidenav a i {
+      margin-right: 8px;
+    }
+    
+    /* ---------- Main Content Area ---------- */
+    .main {
+      margin-left: 250px; /* Leave room for the side nav */
+      padding: 20px;
+      margin-top: 20px;
+      background-color: #f4f4f4;
+      min-height: 100vh;
+    }
+    
+    /* ---------- Sponsored Section ---------- */
+    .sponsored-section {
+      margin-bottom: 30px;
+      padding: 20px;
+      border-radius: 8px;
+    }
+    
+    .sponsored-section h2 {
+      margin-bottom: 10px;
+      color: #4242ff;
+      font-size: 24px;
+    }
+    
+    /* Sponsored Wrapper and Container */
+    .sponsored-wrapper {
+      position: relative;
+    }
+    
+    .sponsored-container {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      padding-bottom: 10px;
+    }
+    
+    /* Hide scrollbar for WebKit browsers */
+    .sponsored-container::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* Arrow buttons for Sponsored Section */
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 2rem;
+      color: #4242ff;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 2;
+    }
+    
+    .arrow.left {
+      left: -20px;
+    }
+    
+    .arrow.right {
+      right: -20px;
+    }
+    
+    /* ---------- Horizontal Rule Demarcation ---------- */
+    hr {
+      border: none;
+      border-top: 2px solid #4242ff;
+      margin: 20px 0;
+    }
+    
+    /* ---------- Regular Posts Grid (Vertical Stack) ---------- */
+    .card-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 20px;
+      justify-items: center; /* Center each post horizontally */
+      max-width: 100%;
+      margin: 0 auto;
+      padding: 40px;
+      padding-bottom: 40px;
+    }
+    
+    /* ---------- Post Container for Regular Posts ---------- */
+    .post {
+      background-color: #e0e0e0; /* Light grey background */
+      padding: 15px;
+      border-radius: 10px;
+      width: 70%;  /* Same width as the image card */
+      margin: 0 auto;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      min-height: 450px; /* Increased height for the entire post */
+    }
+    
+    /* Post Header (User info) */
+    .post-header {
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #ccc;
+      margin-bottom: 10px;
+    }
+    .post-dp {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      margin-right: 10px;
+      object-fit: cover;
+    }
+    .post-username {
+      font-size: 16px;
+      font-weight: bold;
+      color: #4242ff;
+    }
+    /* New Post Time element */
+    .post-time {
+      font-size: 14px;
+      color: #888;
+      margin-left: 10px;
+    }
+    .follow-btn {
+      background-color: #00ffea;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-left: auto;
+    }
+    .follow-btn:hover {
+      background-color: #00ccba;
+    }
+    
+    /* Post Comment (above the image) with Bold Text and Extra Padding */
+    .post-comment {
+      padding: 10px;
+      font-size: 16px;
+      color: #4242ff;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+    
+    /* ---------- Card Styles (Image) ---------- */
+    .card {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      height: 350px; /* Default height for sponsored posts */
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s;
+      cursor: pointer;
+    }
+    
+    /* Increase the height of the image in regular posts */
+    .post .card {
+      height: 600px;
+    }
+    
+    /* Ensure sponsored cards have a minimum width */
+    .sponsored-container .card {
+      min-width: 300px;
+    }
+    
+    .card:hover {
+      transform: translateY(-5px);
+    }
+    
+    /* Fade effect at the bottom of cards */
+    .card::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      background: linear-gradient(to top, rgba(11, 11, 11, 0.7), transparent);
+      z-index: 1;
+    }
+    
+    /* ---------- Post Footer (Like, Dislike, Comments) ---------- */
+    .post-footer {
+      display: flex;
+      justify-content: space-around;
+      padding: 10px;
+      border-top: 1px solid #ccc;
+      margin-top: 10px;
+    }
+    .post-footer button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: #4242ff;
+    }
+    .post-footer button:hover {
+      color: #00ffea;
+    }
+    
+    /* ---------- Sponsored Cards (unchanged) ---------- */
+    .card h3 {
+      position: absolute;
+      z-index: 2;
+      color: #fff;
+      margin: 0 10px;
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+      bottom: 20px;
+      left: 10px;
+      font-size: 18px;
+      line-height: 1.3;
+    }
+    /* Modal Styles */
+
+/* Form Styling */
+.input-group {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #4242ff;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  background: #f0f0f0;
+  color: #4242ff;
+  outline: none;
+}
+
+.form-btn {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  background: #4242ff;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.form-btn:hover {
+  background: #00ccba;
+}
+
+.switch-form {
+  margin-top: 15px;
+  font-size: 14px;
+}
+
+.switch-form a {
+  color: #4242ff;
+  text-decoration: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.social-login {
+  margin-top: 20px;
+}
+
+.social-login p {
+  margin: 15px 0;
+  color: #666;
+}
+
+
+
+
+
+/* Modal container */
+.modal {
+      display: none; /* Hidden by default */
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      align-items: center;
+      justify-content: center;
+  }
+
+/* When active, display the modal as flex */
+.modal.active {
+  display: flex;
+}
+
+.modal-content {
+      background: #fff;
+      padding: 2rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      animation: fadeIn 0.3s ease;
+      position: relative;
+  }
+
+  /* Modal header */
+  .modal-content h2 {
+      margin-bottom: 1rem;
+      text-align: center;
+      font-family: 'Poppins', sans-serif;
+      color: #333;
+  }
+
+  /* Form elements */
+  .modal-content textarea {
+      width: 100%;
+      height: 100px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      padding: 10px;
+      resize: vertical;
+      font-family: 'Poppins', sans-serif;
+      margin-bottom: 1rem;
+  }
+  .modal-content input[type="file"] {
+      margin-bottom: 1rem;
+      font-family: 'Poppins', sans-serif;
+  }
+  .form-btn {
+      background: linear-gradient(45deg, #6a11cb, #2575fc);
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 12px 20px;
+      width: 100%;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-family: 'Poppins', sans-serif;
+  }
+  .form-btn:hover {
+      background: linear-gradient(45deg, #2575fc, #6a11cb);
+  }
+
+  /* Close button */
+  .close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 24px;
+      color: #333;
+      cursor: pointer;
+      transition: color 0.3s ease;
+  }
+  .close:hover {
+      color: #2575fc;
+  }
+
+  /* Fade in animation */
+  @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.9); }
+      to { opacity: 1; transform: scale(1); }
+  }
+
+.post-options {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.options-icon {
+    font-size: 18px;
+    cursor: pointer;
+    padding: 5px;
+}
+
+.options-menu {
+    position: absolute;
+    right: 0;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    display: none;
+    z-index: 10;
+    min-width: 100px;
+    text-align: left;
+}
+
+.options-menu button {
+    background: none;
+    border: none;
+    width: 100%;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.options-menu button:hover {
+    background: #f0f0f0;
+}
+
+/* Fullscreen Image Modal */
+#imageModal {
+  display: none; /* Hidden by default */
+  position: fixed;
+  z-index: 2000; /* High z-index to appear on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.9); /* Dark overlay */
+  align-items: center;
+  justify-content: center;
+}
+
+#imageModal .modal-content {
+  margin: auto;
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 90%;
+  max-height: 90%;
+  animation: zoom 0.3s;
+}
+
+
+@keyframes zoom {
+  from { transform: scale(0.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+#imageModal .close {
+  position: absolute;
+  top: 20px;
+  right: 35px;
+  color: #fff;
+  font-size: 40px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+#imageModal .close:hover {
+  color: #bbb;
+}
+
+#imageModal.active {
+  display: flex;
+}
+
+.profile-container {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-dropdown {
+  display: none; /* Hidden by default */
+  position: absolute;
+  right: 0;
+  top: 40px;
+  width: 200px;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  font-family: Arial, sans-serif;
+}
+
+.profile-dropdown.active {
+  display: block;
+}
+
+.profile-option {
+  padding: 12px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.profile-option:hover {
+  background-color: #f5f5f5;
+}
+
+
+  </style>
+  
+  <!-- Font Awesome Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+</head>
+<body>
+  <!-- ---------- Fixed Navbar with Search ---------- -->
+  <div class="navbar">
+    <!-- Logo at the top left -->
+    <div class="logo">InnoVent</div>
+    <!-- Search Box Container in the center -->
+    <div class="search-container">
+      <input type="text" class="search-box" placeholder="Search..." />
+      <i class="fas fa-search search-icon"></i>
+    </div>
+    <!-- Nav Icons at the right side -->
+    <div class="nav-icons">
+      <a href="#" id="uploadIcon"><i class="fas fa-plus"></i></a>
+      <a href="#"><i class="fas fa-bell"></i></a>
+      <div class="profile-container">
+        <a href="#" id="profileIcon">
+          <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Profile" style="width: 30px; height: 30px; border-radius: 50%;">
+        </a>
+      
+          <div id="profileDropdown" class="profile-dropdown">
+              <div id="profileOption" class="profile-option">Profile Info</div>
+          </div>
+        
+      </div>
+      
+      
+      <a href="#" id="logoutButton"><i class="fas fa-sign-out-alt"></i></a>
+    </div>
+  </div>
+  
+  <!-- Modal for Creating a New Post -->
+  <div id="postModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Create a New Post</h2>
+      <form id="post-form">
+        <textarea id="post-content" placeholder="What's on your mind?" required></textarea>
+        <!-- File input for image upload -->
+        <input type="file" id="post-image" accept="image/*">
+        <button type="submit" class="form-btn">Post</button>
+      </form>
+    </div>
+  </div>
+  
+
+
+  <!-- ---------- Fixed Side Navigation ---------- -->
+  <div class="sidenav">
+    <a href="homepage.html"><i class="fas fa-home"></i> Home</a>
+    <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
+    <a href="#about"><i class="fas fa-star"></i> Popular</a>
+    <a href="#services"><i class="fas fa-cogs"></i> Services</a>
+    <a href="#clients"><i class="fas fa-users"></i> Clients</a>
+    <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+  </div>
+  
+  <!-- ---------- Main Content ---------- -->
+  <div class="main">
+    <!-- Sponsored Posts Section -->
+    <div class="sponsored-section">
+      <h2>Sponsored</h2>
+      <div class="sponsored-wrapper">
+        <div class="arrow left" style="display: none;"><i class="fas fa-chevron-left"></i></div>
+        <div class="sponsored-container">
+          <!-- Sponsored Card 1: Funding & Investment Opportunities -->
+          <div class="card" style="background-image: url('assets/funding.jpeg');">
+            <h3>Funding & Investment<br>Opportunities<br><small>Grants, funding rounds &amp; accelerator programs</small></h3>
+          </div>
+          <!-- Sponsored Card 2: Innovative Product Launches -->
+          <div class="card" style="background-image: url('assets/product_launch.jpg');">
+            <h3>Innovative Product Launches<br><small>New tech gadgets &amp; software tools</small></h3>
+          </div>
+          <!-- Sponsored Card 3: Exclusive Webinars & Workshops -->
+          <div class="card" style="background-image: url('assets/webinar.webp');">
+            <h3>Exclusive Webinars &amp; Workshops<br><small>Live sessions with industry experts</small></h3>
+          </div>
+          <!-- Sponsored Card 4: Partnership & Collaboration -->
+          <div class="card" style="background-image: url('assets/partnership.webp');">
+            <h3>Partnership &amp; Collaboration<br><small>Joint ventures &amp; co-branding opportunities</small></h3>
+          </div>
+          <!-- Sponsored Card 5: Industry Case Studies -->
+          <div class="card" style="background-image: url('assets/industry_collaboration.jpg');">
+            <h3>Industry Case Studies &amp; Success Stories<br><small>Real-life testimonials &amp; achievements</small></h3>
+          </div>
+          <!-- Sponsored Card 6: Tool & Service Promotions -->
+          <div class="card" style="background-image: url('assets/tools.webp');">
+            <h3>Tool &amp; Service Promotions<br><small>Special offers on productivity tools</small></h3>
+          </div>
+          <!-- Sponsored Card 7: Event Announcements -->
+          <div class="card" style="background-image: url('assets/event.webp');">
+            <h3>Event Announcements<br><small>Conferences, hackathons &amp; summits</small></h3>
+          </div>
+          <!-- Sponsored Card 8: Sponsored Challenges & Competitions -->
+          <div class="card" style="background-image: url('assets/competiotion.webp');">
+            <h3>Sponsored Challenges &amp; Competitions<br><small>Pitch competitions &amp; innovation challenges</small></h3>
+          </div>
+        </div>
+        <div class="arrow left" style="display: none;"><i class="fas fa-chevron-left"></i></div>
+        <div class="arrow right"><i class="fas fa-chevron-right"></i></div>
+
+      </div>
+    </div>
+    
+    <hr>
+    
+    <!-- Regular Posts Section (Vertical Stack) -->
+    <div class="card-container" id="postsContainer">
+      <!-- Post 1 -->
+      <div class="post">
+        <!-- Post Header with DP, Username, Time, and Follow Option -->
+        <div class="post-header">
+          <!-- Use the default external avatar image -->
+          <img class="post-dp" src="https://www.w3schools.com/howto/img_avatar.png" alt="User DP" />
+          <span class="post-username">User1</span>
+          <span class="post-time">2h ago</span>
+          <button class="follow-btn">Follow</button>
+        </div>
+        <!-- User Comment above the image -->
+        <div class="post-comment">
+          Anand Mahindra’s message to employees on New Year 2025
+        </div>
+        <!-- Post Image -->
+        <div class="card" style="background-image: url('assets/anand mahindra.webp');"></div>
+        <!-- Post Footer with Like, Dislike, and Comment options -->
+        <div class="post-footer">
+          <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+          <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+          <button class="comment-btn"><i class="fas fa-comment"></i></button>
+        </div>
+      </div>
+      
+      <!-- Post 2 -->
+      <div class="post">
+        <div class="post-header">
+          <img class="post-dp" src="https://www.w3schools.com/howto/img_avatar.png" alt="User DP" />
+          <span class="post-username">User2</span>
+          <span class="post-time">3h ago</span>
+          <button class="follow-btn">Follow</button>
+        </div>
+        <div class="post-comment">
+          Budget 2025: A Catalyst for AI-driven Innovation
+        </div>
+        <div class="card" style="background-image: url('assets/nirmala.avif');"></div>
+        <div class="post-footer">
+          <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+          <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+          <button class="comment-btn"><i class="fas fa-comment"></i></button>
+        </div>
+      </div>
+      
+      <!-- Post 3 -->
+      <div class="post">
+        <div class="post-header">
+          <img class="post-dp" src="https://www.w3schools.com/howto/img_avatar.png" alt="User DP" />
+          <span class="post-username">User3</span>
+          <span class="post-time">5h ago</span>
+          <button class="follow-btn">Follow</button>
+        </div>
+        <div class="post-comment">
+          DeepSeek hasn’t just disrupted OpenAI. Chinese tech giants are being upended too.
+        </div>
+        <div class="card" style="background-image: url('assets/deepseek.jpg');"></div>
+        <div class="post-footer">
+          <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+          <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+          <button class="comment-btn"><i class="fas fa-comment"></i></button>
+        </div>
+      </div>
+      
+      <!-- Post 4 -->
+      <div class="post">
+        <div class="post-header">
+          <img class="post-dp" src="https://www.w3schools.com/howto/img_avatar.png" alt="User DP" />
+          <span class="post-username">User4</span>
+          <span class="post-time">1d ago</span>
+          <button class="follow-btn">Follow</button>
+        </div>
+        <div class="post-comment">
+          Nvidia Stock Crashes...
+        </div>
+        <div class="card" style="background-image: url('assets/nvidia.webp');"></div>
+        <div class="post-footer">
+          <button class="like-btn"><i class="fas fa-thumbs-up"></i></button>
+          <button class="dislike-btn"><i class="fas fa-thumbs-down"></i></button>
+          <button class="comment-btn"><i class="fas fa-comment"></i></button>
+        </div>
+      </div>
+      
+      
+      
+      
+      
+      
+    </div>
+  </div>
+
+<!-- Fullscreen Image Modal -->
+<div id="imageModal" class="image-modal">
+  <span class="close">&times;</span>
+  <img class="modal-content" id="modalImage" alt="Fullscreen Image">
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (!localStorage.getItem("token")) {
+      window.location.href = "login.html"; // Redirect if no token
+    }
+  });
+</script>
+
+</body>
+</html>

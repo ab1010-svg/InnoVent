@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>InnoVent - Sign Up</title>
+  <!-- Import Exo 2 font from Google Fonts for a modern futuristic look -->
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Import Font Awesome for social media icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ---------- General Reset & Body ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background-color: white;
+      font-family: 'Exo 2', sans-serif;
+      color: #4242ff;
+      line-height: 1.6;
+      min-height: 100vh;
+      padding-top: 80px; /* Space for fixed navbar */
+    }
+    
+    /* ---------- Navbar ---------- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: white;
+      border-bottom: 2px solid #4242ff;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: #4242ff;
+      margin-left: 15px;
+    }
+    nav ul {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      list-style: none;
+    }
+    nav ul li {
+      margin: 0 15px;
+    }
+    nav ul li a {
+      color: black;
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: #4242ff;
+    }
+    .nav-icons {
+      display: flex;
+      align-items: center;
+    }
+    .nav-icons a {
+      color: #4242ff;
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    .nav-icons a:hover {
+      color: #4242ff;
+    }
+    
+    /* ---------- Form Container ---------- */
+    .form-container {
+      background: white;
+      padding: 40px;
+      border-radius: 10px;
+      text-align: center;
+      width: 350px;
+      margin: 40px auto;
+      box-shadow: 0 80px 80px rgba(0, 0, 0, 0.1);
+    }
+    
+    .form-container h2 {
+      margin-bottom: 20px;
+      color: #4242ff;
+      font-size: 28px;
+    }
+    
+    .input-group {
+      margin-bottom: 15px;
+      text-align: left;
+    }
+    .input-group label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 5px;
+      color: #4242ff;
+    }
+    .input-group input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      background: #f0f0f0;
+      color: #4242ff;
+      outline: none;
+    }
+    .input-group input::placeholder {
+      color: #888;
+    }
+    
+    .form-btn {
+      width: 100%;
+      padding: 12px;
+      border: none;
+      background: #4242ff;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .form-btn:hover {
+      background: #00ccba;
+    }
+    
+    .switch-form {
+      margin-top: 15px;
+      font-size: 14px;
+    }
+    .switch-form a {
+      color: #4242ff;
+      text-decoration: none;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .switch-form a:hover {
+      text-decoration: underline;
+    }
+    
+    .social-login {
+      margin-top: 20px;
+    }
+    .social-login a {
+      display: inline-block;
+      margin: 5px;
+      padding: 10px;
+      border-radius: 5px;
+      font-size: 18px;
+      color: white;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    .social-login a i {
+      margin-right: 8px;
+    }
+    .social-login .google {
+      background: #db4437;
+    }
+    .social-login .facebook {
+      background: #4267B2;
+    }
+    .social-login .linkedin {
+      background: #0077b5;
+    }
+    .social-login a:hover {
+      opacity: 0.8;
+    }
+    
+    /* ---------- Smooth Form Switch Animation ---------- */
+    .signup-form {
+      display: none;
+    }
+  </style>
+  
+  <!-- Include script.js so that the registration function is available -->
+  <script src="script.js" defer></script>
+</head>
+<body>
+
+  <!-- ---------- Navigation Bar ---------- -->
+  <nav class="hello">
+    <div class="logo">InnoVent</div>
+    <ul>
+      <li><a href="homepage.html">Home</a></li>
+      <li><a href="explore.html">Explore</a></li>
+      <li><a href="#">Solutions</a></li>
+      <li><a href="#">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- ---------- Sign Up Form Container ---------- -->
+<div class="form-container">
+  <h2>Sign Up</h2>
+  <!-- onsubmit attribute hooks into the registerUser function -->
+  <form onsubmit="registerUser(event)">
+    <!-- Full Name Input -->
+    <div class="input-group">
+      <label for="register-fullName">Full Name:</label>
+      <input type="text" id="register-fullName" placeholder="Enter your full name" required>
+    </div>
+    <!-- Username Input -->
+    <div class="input-group">
+      <label for="register-username">Username:</label>
+      <input type="text" id="register-username" placeholder="Choose a username" required>
+      <!-- Error message for taken username -->
+      <p id="usernameError" style="color: red; display: none;">Username is already taken. Try another.</p>
+      <!-- Container for suggested usernames -->
+      <div id="suggestedUsernames"></div>
+    </div>
+    <!-- Email Input -->
+    <div class="input-group">
+      <label for="register-email">Email:</label>
+      <input type="email" id="register-email" placeholder="Email" required>
+    </div>
+    <!-- Password Input -->
+    <div class="input-group">
+      <label for="register-password">Password:</label>
+      <input type="password" id="register-password" placeholder="Password" required>
+    </div>
+    <button type="submit" class="form-btn">Register</button>
+  </form>
+  <div class="switch-form">
+    Already have an account? <a href="login.html">Login</a>
+  </div>
+  <div class="social-login">
+    <a href="#" class="google"><i class="fab fa-google"></i> Google</a>
+    <a href="#" class="facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+    <a href="#" class="linkedin"><i class="fab fa-linkedin-in"></i> LinkedIn</a>
+  </div>
+</div>
+
+
+</body>
+</html>

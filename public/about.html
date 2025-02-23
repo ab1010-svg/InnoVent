@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About</title>
+  <!-- Import Exo 2 font from Google Fonts for a modern futuristic look -->
+  <link href="https://fonts.googleapis.com/css2?family=Exo+2:wght@400;700&display=swap" rel="stylesheet">
+  <!-- Import Font Awesome for icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    /* ---------- CSS Variables for the Color Scheme ---------- */
+    :root {
+      --background: #F5F5F5;
+      --accent: #4242ff;
+      --text: #333333;
+      --primary: #007BFF;
+      --secondary: #00C896;
+    }
+
+    /* ---------- General Reset & Body ---------- */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      background: var(--background);
+      font-family: 'Exo 2', sans-serif;
+      color: var(--text);
+      line-height: 1.6;
+    }
+    
+    /* ---------- Navbar ---------- */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: var(--background);
+      border-bottom: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 30px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .logo {
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+    nav ul {
+      display: flex;
+      align-items: center;
+      list-style: none;
+  position: absolute;
+  left: 45%;
+  /* other styles remain */
+}
+
+    nav ul li {
+      margin: 0 15px;
+    }
+    nav ul li a {
+      color: var(--text);
+      text-decoration: none;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    nav ul li a:hover {
+      color: var(--accent);
+    }
+    .nav-icons a {
+      color: var(--text);
+      text-decoration: none;
+      margin-left: 20px;
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+    .nav-icons a:hover {
+      color: var(--accent);
+    }
+    
+    /* ---------- Carousel (Slideshow) Container ---------- */
+    .carousel {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      min-height: 100vh;
+    }
+    /* Gradient fade at the bottom of the carousel */
+    .carousel::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 150px;
+      pointer-events: none;
+      z-index: 9;
+    }
+    .slides {
+      display: flex;
+      transition: transform 0.5s ease-in-out;
+    }
+    .slide {
+      flex: 0 0 100%;
+      min-height: 100vh;
+    }
+    .slide img {
+      width: 100%;
+      height: 800px;
+      object-fit: cover;
+      display: block;
+    }
+    
+    /* ---------- Arrow Buttons with Full-Height Gradient Background ---------- */
+    .prev, .next {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100px;
+      border: none;
+      cursor: pointer;
+      font-size: 36px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      background: none;
+    }
+    .prev {
+      left: 0;
+      background: linear-gradient(to right, rgba(0,0,0,0.8), rgba(82,80,80,0));
+    }
+    .next {
+      right: 0;
+      background: linear-gradient(to left, rgba(0,0,0,0.8), rgba(102,100,100,0));
+    }
+    
+    /* ---------- Dot Indicators ---------- */
+    .dot-container {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      text-align: center;
+      background: transparent;
+      z-index: 50;
+      padding: 0;
+    }
+    .dot {
+      cursor: pointer;
+      height: 15px;
+      width: 15px;
+      margin: 0 6px;
+      background-color: #bbbbbb;
+      border-radius: 50%;
+      display: inline-block;
+      transition: background-color 0.6s ease;
+    }
+    .dot.active {
+      background-color: var(--accent);
+    }
+    
+    /* ---------- Content Container (Description, CTA, Features) ---------- */
+    .content-container {
+      background: transparent;
+      padding: 40px 20px;
+    }
+    
+    /* ---------- Description Section ---------- */
+    #description {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    #description .description-content {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    #description h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+    #description p {
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--text);
+    }
+    
+    /* ---------- Call-to-Action (CTA) Section ---------- */
+    .cta-section {
+      text-align: center;
+      padding: 50px 20px;
+      margin-bottom: 40px;
+    }
+    .cta-section h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: var(--accent);
+    }
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: #fff;
+      padding: 15px 30px;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+    .cta-btn:hover {
+      background: var(--secondary);
+    }
+    
+    /* ---------- Features Section ---------- */
+    #features {
+      text-align: center;
+      padding: 60px 20px;
+    }
+    #features h2 {
+      font-size: 36px;
+      margin-bottom: 40px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    .features-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .feature {
+      padding: 30px;
+      border-radius: 10px;
+      width: 250px;
+      text-align: center;
+      transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      box-shadow: 0 4px 10px rgba(255,140,66,0.2);
+    }
+    .feature i {
+      font-size: 40px;
+      color: var(--accent);
+      margin-bottom: 15px;
+    }
+    .feature h3 {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: var(--accent);
+    }
+    .feature p {
+      font-size: 16px;
+      color: var(--text);
+    }
+    .feature:hover {
+      transform: translateY(-50px);
+      box-shadow: 0 6px 20px rgba(94, 98, 175, 0.5);
+    }
+    
+    /* ---------- Footer ---------- */
+    footer {
+      background: var(--background);
+      padding: 5px 0;
+      text-align: center;
+      height: 200px;
+    }
+    footer .footer-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    footer p {
+      font-size: 20px;
+      margin-bottom: 5px;
+      margin-top: 50px;
+      color: var(--text);
+    }
+    footer .social-links a {
+      color: var(--text);
+      margin: 0 8px;
+      font-size: 20px;
+      transition: color 0.3s ease;
+    }
+    footer .social-links a:hover {
+      color: var(--accent);
+    }
+    
+    /* ---------- Scroll Reveal Animation ---------- */
+    .pop-up-text {
+      opacity: 0;
+      transform: translateY(50px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .pop-up-text.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .team-section {
+      margin-top: 40px;
+      text-align: center;
+    }
+    .team-section h2 {
+      font-size: 36px;
+      margin-bottom: 40px;
+      color: var(--accent);
+      text-transform: uppercase;
+    }
+    .team-members {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+    .team-member {
+      background: #f9f9f9;
+      padding: 20px;
+      border-radius: 10px;
+      width: 250px;
+      text-align: center;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .team-member img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 15px;
+    }
+    .team-member h3 {
+      font-size: 20px;
+      margin-bottom: 5px;
+      color: var(--accent);
+    }
+    .team-member p {
+      font-size: 16px;
+      color: var(--text);
+    }
+    
+  </style>
+</head>
+<body>
+  <!-- ---------- Navigation Bar ---------- -->
+  <nav class="hello">
+    <div class="logo">InnoVent</div>
+    <ul>
+      <li><a href="homepage.html" style="text-align: center;">Home</a></li>
+      <li><a href="about.html" style="color: #4242ff;">About</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    
+  </nav>
+  
+  <!-- ---------- Carousel / Slideshow Section ---------- -->
+  <div class="carousel">
+    <div class="slides">
+      <!-- Slide 1 -->
+      <div class="slide">
+        <img src="assets/SHARE YOUR IDEAS.png" alt="Slide 1">
+      </div>
+      <!-- Slide 2 -->
+      <div class="slide">
+        <img src="assets/slide2.jpg" alt="Slide 2">
+      </div>
+      <!-- Slide 3 -->
+      <div class="slide">
+        <img src="assets/handshake-businessmen.jpg" alt="Slide 3">
+      </div>
+    </div>
+    <!-- Arrow Buttons with Full-Height Gradient Overlays -->
+    <button class="prev" onclick="prevSlide()">&#10094;</button>
+    <button class="next" onclick="nextSlide()">&#10095;</button>
+    <div class="dot-container">
+      <span class="dot" onclick="currentSlide(0)"></span>
+      <span class="dot" onclick="currentSlide(1)"></span>
+      <span class="dot" onclick="currentSlide(2)"></span>
+    </div>
+  </div>
+  
+  <!-- ---------- Content Container (Description, CTA, and Features) ---------- -->
+  <div class="content-container">
+    <!-- ---------- Description Section ---------- -->
+    <section id="description">
+      <div class="description-content pop-up-text">
+        <h2>Welcome to InnoVent</h2>
+        <p>
+          InnoVent is the premier platform for innovators, entrepreneurs, and researchers committed to shaping the future. Our solution empowers you to share breakthrough ideas and seamlessly connect with industry experts and peers. Whether you're launching a startup or embarking on pioneering research, InnoVent's intuitive interface helps you evaluate and collaborate on projects that align with your vision. Join our dynamic community and transform bold ideas into impactful realities.
+        </p>
+      </div>
+    </section>
+    
+    <!-- ---------- Call-to-Action (CTA) Section ---------- -->
+    <section class="cta-section">
+      <h2 class="pop-up-text">Sign Up for Free!</h2>
+      <a href="signup.html" class="cta-btn pop-up-text">Join Now</a>
+    </section>
+    
+    <!-- ---------- Features Section (Why Use InnoVent?) ---------- -->
+    <section id="features">
+      <h2 class="pop-up-text">Why Use InnoVent?</h2>
+      <div class="features-container">
+        <div class="feature pop-up-text">
+          <i class="fas fa-hand-pointer"></i>
+          <h3>Swipe-Based Collaboration</h3>
+          <p>Easily browse through innovative ideas and connect with like-minded creators using an intuitive swipe interface.</p>
+        </div>
+        <div class="feature pop-up-text">
+          <i class="fas fa-robot"></i>
+          <h3>AI-Powered Idea Matching</h3>
+          <p>Let AI recommend ideas and collaborators based on your interests and expertise.</p>
+        </div>
+        <div class="feature pop-up-text">
+          <i class="fas fa-lock"></i>
+          <h3>Secure & Confidential</h3>
+          <p>Your ideas are protected with top-tier encryption, ensuring privacy and security.</p>
+        </div>
+        <div class="feature pop-up-text">
+          <i class="fas fa-globe"></i>
+          <h3>Global Innovation Network</h3>
+          <p>Connect with innovators, investors, and experts from around the world.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+  <section class="team-section">
+    <h2>Meet Our Team</h2>
+    <div class="team-members">
+      <div class="team-member">
+        <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Jane Doe">
+        <h3>Ahanabha Basu</h3>
+        
+      </div>
+      <div class="team-member">
+        <img src="https://www.w3schools.com/howto/img_avatar.png" alt="John Smith">
+        <h3>Pritam Bera</h3>
+        
+      </div>
+      
+      <div class="team-member">
+        <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Michael Brown">
+        <h3>Naga Sujatha</h3>
+        
+      </div>
+    </div>
+  </section>
+  
+  <!-- ---------- Footer Section ---------- -->
+  <footer>
+    <div class="footer-container">
+      <p>&copy; 2025 InnoVent. All Rights Reserved.</p>
+      <div class="social-links">
+        <a href="#" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="#" target="_blank" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="#" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+  </footer>
+  
+  <!-- ---------- JavaScript for Carousel and Scroll Reveal ---------- -->
+  <script>
+    // Scroll Reveal Animation (Repeats every time the element scrolls into view)
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        } else {
+          entry.target.classList.remove('active');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+    document.querySelectorAll('.pop-up-text').forEach((el) => {
+      observer.observe(el);
+    });
+    
+    let slideIndex = 0;
+    const slides = document.querySelector('.slides');
+    const totalSlides = document.querySelectorAll('.slide').length;
+    const dots = document.querySelectorAll('.dot');
+    let autoSlideInterval;
+    
+    function showSlide(index) {
+      if (index < 0) {
+        slideIndex = totalSlides - 1;
+      } else if (index >= totalSlides) {
+        slideIndex = 0;
+      } else {
+        slideIndex = index;
+      }
+      slides.style.transform = 'translateX(' + (-slideIndex * 100) + '%)';
+      updateDots();
+    }
+    
+    function updateDots() {
+      dots.forEach((dot, idx) => {
+        dot.classList.remove('active');
+        if (idx === slideIndex) {
+          dot.classList.add('active');
+        }
+      });
+    }
+    
+    function nextSlide() {
+      showSlide(slideIndex + 1);
+      resetInterval();
+    }
+    function prevSlide() {
+      showSlide(slideIndex - 1);
+      resetInterval();
+    }
+    function currentSlide(index) {
+      showSlide(index);
+      resetInterval();
+    }
+    
+    function resetInterval() {
+      clearInterval(autoSlideInterval);
+      autoSlideInterval = setInterval(() => {
+        showSlide(slideIndex + 1);
+      }, 5000);
+    }
+    
+    autoSlideInterval = setInterval(() => {
+      showSlide(slideIndex + 1);
+    }, 5000);
+    
+    showSlide(slideIndex);
+  </script>
+</body>
+</html>

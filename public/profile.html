@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Profile Info</title>
+  <link rel="stylesheet" href="style.css"> <!-- Ensure this includes your common styles -->
+  <style>
+    /* Profile page specific styling (or place this in your CSS file) */
+    .profile-page {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .profile-page h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .profile-page p {
+      font-size: 16px;
+      margin: 10px 0;
+    }
+    .delete-btn {
+      display: block;
+      width: 100%;
+      background-color: red;
+      color: white;
+      text-align: center;
+      padding: 12px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 20px;
+      font-size: 16px;
+    }
+    .delete-btn:hover {
+      background-color: darkred;
+    }
+  </style>
+</head>
+<body>
+  <div class="profile-page">
+    <h1>Profile Info</h1>
+    <p><strong>Full Name:</strong> <span id="fullName">Loading...</span></p>
+    <p><strong>Username:</strong> <span id="username">Loading...</span></p>
+    <p><strong>Email:</strong> <span id="email">Loading...</span></p>
+    <button id="deleteAccount" class="delete-btn">Delete Account</button>
+  </div>
+  
+  <script src="profile.js"></script> <!-- New JavaScript file for profile page functionality -->
+</body>
+</html>

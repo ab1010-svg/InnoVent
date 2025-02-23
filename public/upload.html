@@ -1,0 +1,46 @@
+<form onsubmit="uploadImage(event)">
+    <input type="file" id="imageUpload" accept="image/*" required />
+    <input type="text" id="comment" placeholder="Add a comment..." required />
+    <button type="submit">Upload</button>
+  </form>
+  
+  <script>
+    async function uploadImage(event) {
+      event.preventDefault();
+  
+      const formData = new FormData();
+      const fileInput = document.getElementById("imageUpload");
+      const commentInput = document.getElementById("comment");
+  
+      formData.append("image", fileInput.files[0]);
+      formData.append("comment", commentInput.value);
+  
+      try {
+        const token = localStorage.getItem("token");
+        if (!token) {
+          alert("You must be logged in to upload an image.");
+          window.location.href = "homepage.html";
+          return;
+        }
+  
+        const response = await fetch("http://localhost:5001/upload/image", {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: formData,
+        });
+  
+        const data = await response.json();
+        if (response.ok) {
+          alert("Image uploaded successfully!");
+          window.location.href = "after_login_homepage.html";
+        } else {
+          alert(data.msg || "Upload failed");
+        }
+      } catch (error) {
+        console.error("Error uploading image:", error);
+        alert("Something went wrong!");
+      }
+    }
+  </script>
