@@ -50,7 +50,13 @@
     <p><strong>Email:</strong> <span id="email">Loading...</span></p>
     <button id="deleteAccount" class="delete-btn">Delete Account</button>
   </div>
-  
+  <!-- Profile Picture Upload Form -->
+  <h2>Update Profile Picture</h2>
+  <form id="profilePicForm" enctype="multipart/form-data">
+    <label for="profilePictureInput">Upload Profile Picture:</label>
+    <input type="file" id="profilePictureInput" name="profilePicture" accept="image/*" required>
+    <button type="submit">Upload</button>
+  </form>
   <script src="profile.js"></script> <!-- New JavaScript file for profile page functionality -->
 </body>
 </html>

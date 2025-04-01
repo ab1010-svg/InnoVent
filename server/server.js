@@ -11,7 +11,7 @@ app.use(cors());
 app.use("/user", require("./routes/user"));
 
 // Serve static files
-app.use(express.static(path.join(__dirname, "public")));
+app.use("/uploads", express.static("uploads"));
 
 // Import routes
 app.use("/auth", require("./routes/auth"));

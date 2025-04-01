@@ -60,3 +60,39 @@ document.getElementById("deleteAccount").addEventListener("click", async () => {
 
 // Load profile data when the page loads
 window.addEventListener("DOMContentLoaded", loadProfile);
+
+document.getElementById("profilePicForm").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const token = localStorage.getItem("token");
+    if (!token) {
+      alert("Please log in.");
+      return;
+    }
+    
+    const formData = new FormData();
+    const fileInput = document.getElementById("profilePictureInput");
+    formData.append("profilePicture", fileInput.files[0]);
+  
+    try {
+      const res = await fetch(`${API_URL}/user/profilePicture`, {
+        method: "PUT",
+        headers: {
+          "Authorization": `Bearer ${token}`
+        },
+        body: formData
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert(data.message);
+        // Optionally, update the local display:
+        document.getElementById("profileIconImg").src = data.profilePicture;
+        // Also update the post cards if needed.
+      } else {
+        alert(data.message || "Error uploading profile picture.");
+      }
+    } catch (error) {
+      console.error("Upload error:", error);
+      alert("Error uploading profile picture.");
+    }
+  });
+  

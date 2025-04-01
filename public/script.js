@@ -174,6 +174,10 @@ async function loadProfile() {
         const data = await res.json();
         if (res.ok) {
             document.getElementById("username").innerText = data.username;
+            // Update profile icon if user has a custom picture:
+            if (data.profilePicture) {
+                document.getElementById("profileIconImg").src = data.profilePicture;
+            }
         } else {
             alert("Session expired. Please log in again.");
             localStorage.removeItem("token");
@@ -337,7 +341,7 @@ async function deletePost(postId) {
 }
 
 
-  function displayPosts(posts) {
+function displayPosts(posts) {
     const postsContainer = document.getElementById("postsContainer");
     postsContainer.innerHTML = ""; // Clear existing posts before appending
     const currentUser = localStorage.getItem("username");
@@ -348,15 +352,15 @@ async function deletePost(postId) {
         
         // Ensure full image URL
         const imageUrl = post.image 
-        ? (post.image.startsWith("/") ? `${API_URL}${post.image}` : `${API_URL}/${post.image}`)
-        : null;
+            ? (post.image.startsWith("/") ? `${API_URL}${post.image}` : `${API_URL}/${post.image}`)
+            : null;
 
         const postElement = document.createElement("div");
         postElement.classList.add("post");
 
         postElement.innerHTML = `
         <div class="post-header">
-            <img class="post-dp" src="https://www.w3schools.com/howto/img_avatar.png" alt="User DP" />
+            <img class="post-dp" src="${post.author.profilePicture || 'https://www.w3schools.com/howto/img_avatar.png'}" alt="User DP" />
             <span class="post-username">${post.author.username || "Anonymous"}</span>
             <span class="post-time">${new Date(post.createdAt).toLocaleString()}</span>
             <button class="follow-btn">Follow</button>
@@ -496,8 +500,31 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
   
-
+  window.addEventListener("DOMContentLoaded", async () => {
+    const token = localStorage.getItem("token");
+    if (!token) return;
   
+    try {
+      const res = await fetch(`${API_URL}/user/profile`, {
+        method: "GET",
+        headers: { "Authorization": `Bearer ${token}` }
+      });
+      const data = await res.json();
+      if (res.ok) {
+        // Update the profile picture on the home page dynamically
+        const profileIconImg = document.getElementById("profileIconImg");
+        if (profileIconImg && data.profilePicture) {
+          profileIconImg.src = data.profilePicture;
+        }
+      } else {
+        console.error("Error fetching profile info");
+      }
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  });
+  
+
 
 
 
