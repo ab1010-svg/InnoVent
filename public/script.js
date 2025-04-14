@@ -1,4 +1,4 @@
-const API_URL = "https://inno-vent.vercel.app/login.html"; // Replace with your backend deployment URL
+const API_URL = ""; // Replace with your backend deployment URL
  // Duplicate declaration removed
 document.addEventListener("DOMContentLoaded", function () {
     const sponsoredContainer = document.querySelector('.sponsored-container');
