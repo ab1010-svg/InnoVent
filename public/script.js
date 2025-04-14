@@ -1,5 +1,5 @@
-const API_URL = ""; // Replace with your backend deployment URL
- // Duplicate declaration removed
+const API_URL = window.location.origin;
+
 document.addEventListener("DOMContentLoaded", function () {
     const sponsoredContainer = document.querySelector('.sponsored-container');
     const leftArrow = document.querySelector('.arrow.left');
