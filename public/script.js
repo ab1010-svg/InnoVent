@@ -1,4 +1,5 @@
-const API_URL = "http://localhost:5000"; // Duplicate declaration removed
+const API_URL = "https://inno-vent-server.vercel.app"; // Replace with your backend deployment URL
+ // Duplicate declaration removed
 document.addEventListener("DOMContentLoaded", function () {
     const sponsoredContainer = document.querySelector('.sponsored-container');
     const leftArrow = document.querySelector('.arrow.left');
@@ -128,11 +129,12 @@ async function loginUser(event) {
     try {
         const res = await fetch(`${API_URL}/auth/login`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            // Send the identifier instead of email
-            body: JSON.stringify({ identifier, password })
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ email, password }),
         });
-
+          
         const data = await res.json();
         if (res.ok) {
             localStorage.setItem("token", data.token);
