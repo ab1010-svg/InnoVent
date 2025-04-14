@@ -650,7 +650,7 @@
       <a href="#"><i class="fas fa-bell"></i></a>
       <div class="profile-container">
         <a href="#" id="profileIcon">
-          <img id="profileIconImg" src="https://www.w3schools.com/howto/img_avatar.png" alt="Profile" style="width: 30px; height: 30px; border-radius: 50%;">
+          <img id="profileIconImg" src="https://www.w3schools.com/howto/img_avatar.png" alt="Profile Icon" style="width: 30px; height: 30px; border-radius: 50%;">
         </a>
         
       
@@ -685,10 +685,9 @@
   <div class="sidenav">
     <a href="homepage.html"><i class="fas fa-home"></i> Home</a>
     <a href="about.html"><i class="fas fa-info-circle"></i> About Us</a>
-    <a href="#about"><i class="fas fa-star"></i> Popular</a>
-    <a href="#services"><i class="fas fa-cogs"></i> Services</a>
-    <a href="#clients"><i class="fas fa-users"></i> Clients</a>
-    <a href="#contact"><i class="fas fa-envelope"></i> Contact</a>
+    <a href="popular.html"><i class="fas fa-star"></i> Popular</a>
+    <a href="services.html"><i class="fas fa-cogs"></i> Services</a>
+    <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
   </div>
   
   <!-- ---------- Main Content ---------- -->
@@ -844,6 +843,20 @@
     }
   });
 </script>
+<!-- Comment Modal -->
+<div id="commentModal" class="modal" style="display:none;">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Comments</h2>
+    <div class="comments-list">
+      <!-- Existing comments will be injected here -->
+    </div>
+    <form id="modal-comment-form">
+      <input type="text" name="comment" placeholder="Write a comment..." required />
+      <button type="submit">Comment</button>
+    </form>
+  </div>
+</div>
 
 </body>
 </html>

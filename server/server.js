@@ -1,4 +1,4 @@
-require("dotenv").config(); // Load environment variables from .env
+require("dotenv").config(); // Load environment variables
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -6,25 +6,28 @@ const cors = require("cors");
 const path = require("path");
 
 const app = express();
-app.use(express.json());
-app.use(cors());
-app.use("/user", require("./routes/user"));
 
-// Serve static files
-app.use("/uploads", express.static("uploads"));
+// ===== Middleware =====
+app.use(express.json()); // To parse JSON bodies
+app.use(cors()); // Enable CORS for frontend requests
 
-// Import routes
-app.use("/auth", require("./routes/auth"));
-// In server.js, after your other routes...
-app.use("/posts", require("./routes/posts"));
+// Serve uploaded images statically
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
-// Connect to MongoDB Atlas using the connection string from the .env file
-mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-})
-.then(() => console.log("MongoDB Atlas Connected"))
-.catch(err => console.log(err));
+// ===== Routes =====
+app.use("/auth", require("./routes/auth"));
+app.use("/user", require("./routes/user")); // Keep only this one for user routes
+app.use("/posts", require("./routes/posts")); // This is what we need for like/dislike to work
+app.use("/admin", require("./routes/admin"));
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+// ===== MongoDB Connection =====
+mongoose.connect(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+})
+.then(() => console.log("✅ MongoDB Atlas Connected"))
+.catch((err) => console.error("❌ MongoDB Connection Error:", err));
+
+// ===== Server Listen =====
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));

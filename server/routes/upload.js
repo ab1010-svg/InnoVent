@@ -26,9 +26,12 @@ router.post("/image", upload.single("image"), async (req, res) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const user = await User.findById(decoded.id);
-    if (!user) {
-      return res.status(404).json({ msg: "User not found" });
+    if (!user) return res.status(404).json({ msg: "User not found" });
+    
+    if (!user.profilePicture) {
+      user.profilePicture = process.env.DEFAULT_PROFILE_PICTURE_URL || '/uploads/profilePictures/default.png';
     }
+    
 
     const newPost = new Post({
       user: user._id,

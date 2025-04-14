@@ -4,6 +4,8 @@ const User = require("../models/User");
 const authMiddleware = require("../middleware/auth");
 const multer = require("multer");
 
+
+
 // Configure multer storage (you can also use cloud storage like AWS S3)
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -40,7 +42,11 @@ router.put("/profilePicture", authMiddleware, upload.single("profilePicture"), a
 router.get("/profile", authMiddleware, async (req, res) => {
   try {
     const user = await User.findById(req.user.id).select("-password");
+    if (!user.profilePicture) {
+      user.profilePicture = process.env.DEFAULT_PROFILE_PICTURE_URL || '/uploads/profilePictures/default.png';
+    }
     res.json(user);
+    
   } catch (error) {
     res.status(500).json({ message: "Server error" });
   }

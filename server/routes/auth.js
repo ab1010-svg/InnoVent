@@ -56,29 +56,30 @@ router.post("/register", async (req, res) => {
 
 
 // Login Route (Modified to use identifier: email or username)
+// Login Route (Modified to use identifier: email or username)
 router.post("/login", async (req, res) => {
     try {
-        const { identifier, password } = req.body; // Expect identifier instead of email
+        const { identifier, password } = req.body;
         let user;
 
         // Determine whether the identifier is an email or username
         if (identifier.includes("@")) {
-            // If it contains an "@" treat it as an email
             user = await User.findOne({ email: identifier });
         } else {
-            // Otherwise, treat it as a username
             user = await User.findOne({ username: identifier });
         }
 
-        // If no user is found, send an error response
         if (!user) return res.status(404).json({ message: "User not found" });
 
-        // Compare password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ message: "Invalid credentials" });
 
-        // Generate JWT token
-        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: "1h" });
+        // ✅ Include username in the token payload
+        const token = jwt.sign(
+            { id: user._id, username: user.username },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+        );
 
         // Return the token and user info
         res.json({ token, userId: user._id, username: user.username });
@@ -86,5 +87,6 @@ router.post("/login", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
+
 
 module.exports = router;

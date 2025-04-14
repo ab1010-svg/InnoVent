@@ -1,62 +1,160 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Profile Info</title>
-  <link rel="stylesheet" href="style.css"> <!-- Ensure this includes your common styles -->
+  <!-- Link to an external CSS file if needed -->
+  <link rel="stylesheet" href="style.css" />
   <style>
-    /* Profile page specific styling (or place this in your CSS file) */
+    /* Global body styling for a soft, modern look */
+    body {
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(135deg, #f6f9fc, #e9eff5);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #333;
+    }
+
+    /* Container for the profile page */
     .profile-page {
+      background: #fff;
       max-width: 600px;
       margin: 50px auto;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      border: 1px solid #ddd;
-      border-radius: 8px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    }
-    .profile-page h1 {
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
       text-align: center;
+    }
+
+    .profile-page h1 {
+      margin-bottom: 20px;
+      font-size: 28px;
+      color: #2c3e50;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* Profile picture styling */
+    #profilePicture {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 4px solid #3498db;
       margin-bottom: 20px;
     }
+
     .profile-page p {
-      font-size: 16px;
-      margin: 10px 0;
+      font-size: 18px;
+      line-height: 1.5;
+      margin: 15px 0;
     }
+    
+    .profile-page p strong {
+      color: #2c3e50;
+    }
+
+    /* Delete account button styling */
     .delete-btn {
-      display: block;
-      width: 100%;
-      background-color: red;
-      color: white;
-      text-align: center;
-      padding: 12px;
+      background-color: #e74c3c;
+      color: #fff;
       border: none;
       border-radius: 5px;
-      cursor: pointer;
-      margin-top: 20px;
+      padding: 12px;
       font-size: 16px;
+      text-transform: uppercase;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 25px;
+      transition: background-color 0.3s ease;
     }
+
     .delete-btn:hover {
-      background-color: darkred;
+      background-color: #c0392b;
+    }
+
+    /* Update Profile Picture Section */
+    .update-profile-pic {
+      background: #fff;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 30px 40px;
+      border-radius: 10px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+    
+    .update-profile-pic h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+      color: #2c3e50;
+      text-transform: uppercase;
+    }
+    
+    .update-profile-pic form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    .update-profile-pic label {
+      font-size: 16px;
+      margin-bottom: 10px;
+      color: #555;
+    }
+    
+    .update-profile-pic input[type="file"] {
+      padding: 8px;
+      margin-bottom: 20px;
+      cursor: pointer;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      background: #fafafa;
+    }
+    
+    .update-profile-pic button[type="submit"] {
+      background-color: #3498db;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 12px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    
+    .update-profile-pic button[type="submit"]:hover {
+      background-color: #2980b9;
     }
   </style>
 </head>
 <body>
   <div class="profile-page">
     <h1>Profile Info</h1>
+    <img id="profilePicture" src="default-profile.jpg" alt="Profile Picture" />
     <p><strong>Full Name:</strong> <span id="fullName">Loading...</span></p>
     <p><strong>Username:</strong> <span id="username">Loading...</span></p>
     <p><strong>Email:</strong> <span id="email">Loading...</span></p>
     <button id="deleteAccount" class="delete-btn">Delete Account</button>
   </div>
-  <!-- Profile Picture Upload Form -->
-  <h2>Update Profile Picture</h2>
-  <form id="profilePicForm" enctype="multipart/form-data">
-    <label for="profilePictureInput">Upload Profile Picture:</label>
-    <input type="file" id="profilePictureInput" name="profilePicture" accept="image/*" required>
-    <button type="submit">Upload</button>
-  </form>
-  <script src="profile.js"></script> <!-- New JavaScript file for profile page functionality -->
+
+  <!-- Update Profile Picture Section -->
+  <div class="update-profile-pic">
+    <h2>Update Profile Picture</h2>
+    <form id="profilePicForm" enctype="multipart/form-data">
+      <label for="profilePictureInput">Upload Profile Picture:</label>
+      <input
+        type="file"
+        id="profilePictureInput"
+        name="profilePicture"
+        accept="image/*"
+        required
+      />
+      <button type="submit">Upload</button>
+    </form>
+  </div>
+
+  <script src="profile.js"></script>
 </body>
 </html>
