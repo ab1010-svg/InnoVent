@@ -17,16 +17,16 @@ app.use('/uploads', express.static(path.join(__dirname, '../server/uploads')));
 
 // ===== Routes =====
 // Auth routes (register, login)
-app.use('/auth', require('../server/routes/auth'));
+app.use('/auth', require('server\routes\auth.js'));
 
 // User routes (profile, delete account, etc.)
 app.use('/user', require('../server/routes/user'));
 
 // Posts routes (create, read, update, delete, like/dislike)
-app.use('/posts', require('../server/routes/posts'));
+app.use('/posts', require('server\routes\posts.js'));
 
 // Admin routes (if any)
-app.use('/admin', require('../server/routes/admin'));
+app.use('/admin', require('server\routes\admin.js'));
 
 // ===== MongoDB Connection =====
 const mongoUri = process.env.MONGO_URI;
