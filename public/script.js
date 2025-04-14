@@ -132,9 +132,10 @@ async function loginUser(event) {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ email, password }),
+            body: JSON.stringify({ identifier, password }),
         });
           
+
         const data = await res.json();
         if (res.ok) {
             localStorage.setItem("token", data.token);
